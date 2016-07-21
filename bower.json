@@ -1,0 +1,27 @@
+{
+  "name": "demo-angular-select-ui",
+  "authors": [
+    "Jirayu Kanda <me@acodify.com>"
+  ],
+  "description": "for demo test angular select ui",
+  "main": "index.php",
+  "keywords": [
+    "ui-select",
+    "angular",
+    "demo"
+  ],
+  "license": "MIT",
+  "homepage": "notyes.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-sanitize": "^1.5.7",
+    "angular-ui-select": "^0.18.1",
+    "bootstrap": "^3.3.6"
+  }
+}
