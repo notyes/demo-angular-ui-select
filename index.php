@@ -10,39 +10,61 @@
 
 </head>
 <body ng-app="app" >
+    
 
-    <div ng-controller="ctrl" >
+    <?php if (! empty( $_POST )): ?>
+        
+    <?php 
+        echo '<pre>'; 
+        print_r( $_POST );
+        echo '</pre>'; 
+    
+    ?>
 
-  <span>Selected: {name: {{selectedItem.name}}, id: {{selectedItem.id}} }</span>
-  <ui-select ng-model="selectedItem">
-    <ui-select-match>
-        <span ng-bind="$select.selected.name"></span>
-    </ui-select-match>
-    <ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">
-        <span ng-bind="item.name"></span>
-    </ui-select-choices>
-  </ui-select>
+    <?php endif ?>
 
 
-    </div>
+    <form action="" method="post" accept-charset="utf-8" >
+
+        <div class="ng-cloak" ng-controller="DemoCtrl as ctrl" >
+
+            <p>Selected: {{ctrl.country.selected}}</p>
+            <ui-select  ng-model="ctrl.country.selected" ng-disabled="ctrl.disabled" style="width: 300px;" title="Choose a country">
+                <ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="country in ctrl.countries | filter: $select.search">
+                    <span ng-bind-html="country.name | highlight: $select.search"></span>
+                    <small ng-bind-html="country.code | highlight: $select.search"></small>
+                </ui-select-choices>
+            </ui-select>
+            <input type="hidden" name="country_2" ng-value="ctrl.country.selected.name" />
+
+        </div>
+
+        <hr>
+        <button type="sublimt"> sent </button>
+
+    </form>
 
 
     <script>
         var module = angular.module('app', ['ui.select', 'ngSanitize']);
 
-        
-        angular.module('app')
-        .controller('ctrl', ['$scope', function ($scope){
-            $scope.itemArray = [
-                {id: 1, name: 'first'},
-                {id: 2, name: 'second'},
-                {id: 3, name: 'third'},
-                {id: 4, name: 'fourth'},
-                {id: 5, name: 'fifth'},
-            ];
 
-            $scope.selectedItem = $scope.itemArray[0];
-        }]);
+        angular.module('app')
+        .controller('DemoCtrl', function ($scope, $http, $timeout, $interval) {
+            var vm = this;
+            vm.disabled = undefined;
+            vm.country = {};
+            vm.countries = [ 
+                {name: 'Afghanistan', code: 'AF'},
+                {name: 'Åland Islands', code: 'AX'},
+                {name: 'Albania', code: 'AL'}
+            ]
+
+
+        });
+
+
 
     </script>
 
